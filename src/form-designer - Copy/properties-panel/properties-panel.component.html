@@ -1,0 +1,109 @@
+<div class="properties-panel">
+    <form #propertyForm="ngForm" (ngSubmit)="onSubmit()" *ngIf="field">
+      <div class="form-group">
+        <label>Field Type</label>
+        <select name="type" [(ngModel)]="editingField.type" required class="form-control">
+          <option value="text">Text</option>
+          <option value="number">Number</option>
+          <option value="email">Email</option>
+          <option value="select">Select</option>
+          <option value="textarea">Textarea</option>
+        </select>
+      </div>
+  
+      <div class="form-group">
+        <label>Field Name</label>
+        <input type="text" 
+               name="name" 
+               [(ngModel)]="editingField.name" 
+               required 
+               class="form-control">
+      </div>
+  
+      <div class="form-group">
+        <label>Label</label>
+        <input type="text" 
+               name="label" 
+               [(ngModel)]="editingField.label" 
+               required 
+               class="form-control">
+      </div>
+  
+      <div class="form-group">
+        <label>Placeholder</label>
+        <input type="text" 
+               name="placeholder" 
+               [(ngModel)]="editingField.placeholder" 
+               class="form-control">
+      </div>
+  
+      <div class="form-group">
+        <label>Hint</label>
+        <input type="text" 
+               name="hint" 
+               [(ngModel)]="editingField.hint" 
+               class="form-control">
+      </div>
+  
+      <div class="form-group">
+        <label>Tooltip</label>
+        <input type="text" 
+               name="tooltip" 
+               [(ngModel)]="editingField.tooltip" 
+               class="form-control">
+      </div>
+  
+      <ng-container *ngIf="editingField.type === 'select'">
+        <div class="form-group">
+          <label>Options</label>
+          <div *ngFor="let option of editingField.eoptions; let i = index" 
+               class="option-group">
+            <input type="text" 
+                   [name]="'optionValue' + i" 
+                   [(ngModel)]="option.value" 
+                   placeholder="Value" 
+                   class="form-control">
+            <input type="text" 
+                   [name]="'optionLabel' + i" 
+                   [(ngModel)]="option.label" 
+                   placeholder="Label" 
+                   class="form-control">
+            <button type="button" 
+                    (click)="removeOption(i)" 
+                    class="btn-remove">×</button>
+          </div>
+          <button type="button" 
+                  (click)="addOption()" 
+                  class="btn-add">Add Option</button>
+        </div>
+      </ng-container>
+  
+      <div class="form-group">
+        <label>CSS Class</label>
+        <input type="text" 
+               name="cssClass" 
+               [(ngModel)]="editingField.cssClass" 
+               class="form-control">
+      </div>
+  
+      <div class="form-group">
+        <label>
+          <input type="checkbox" 
+                 name="required" 
+                 [(ngModel)]="editingField.required">
+          Required
+        </label>
+      </div>
+  
+      <button type="submit" 
+              class="btn-submit"
+              [disabled]="!propertyForm.valid">
+        Update Field
+      </button>
+    </form>
+  
+    <div class="no-selection" *ngIf="!field">
+      Select a field to edit its properties
+    </div>
+  </div>
+  

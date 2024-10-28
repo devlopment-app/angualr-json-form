@@ -1,0 +1,110 @@
+.floating {
+  position: relative;
+  margin-bottom: 1rem;
+
+  input {
+    height: 2.3rem;
+    padding: 0.4rem;
+    width: 100%;
+  }
+
+  select {    
+    height: 2rem;
+    width: 100%;
+  }
+
+  textarea {
+    height: 3.3rem;
+    padding: 0.4rem;
+    width: 100%;
+    min-height: 100px;
+    resize: vertical;
+  }
+
+  input,
+  textarea,
+  select {
+    font-size: 1rem;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    background-color: #fff;
+    transition: all 0.2s ease-in-out;
+    position: relative;
+    z-index: 1;
+
+    &:required {
+      outline: none;
+      border-color: #bc86fe;
+      box-shadow: 0 0 0 0.1rem rgba(13, 110, 253, 0.25);
+    }
+
+    &:focus {
+      outline: none;
+      border-color: #86b7fe;
+      box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+    }
+
+    &:disabled {
+      background-color: #e9ecef;
+      cursor: not-allowed;
+    }
+  }
+
+  label {
+    position: absolute;
+    top: 50%;
+    left: 0.75rem;
+    transform: translateY(-50%);
+    font-size: 1rem;
+    color: #6c757d;
+    pointer-events: none;
+    transition: all 0.2s ease-in-out;
+    background-color: transparent;
+    margin: 0;
+    padding: 0 0.25rem;
+    z-index: 2;
+  }
+
+  label.hasvalue,  
+  label:has(+ input:focus),
+  label:has(+ input:not(:placeholder-shown)),
+  label:has(+ select:focus),
+  label:has(+ select[value]:not([value=""])),
+  label:has(+ select.xhasvalue ),  
+  label:has(+ textarea:focus),
+  label:has(+ textarea:not(:placeholder-shown)) {
+    top: -0.5rem;
+    transform: scale(0.8);
+    background-color: white;
+    color: #0d6efd;
+    z-index: 3;
+  }
+
+
+  input:focus ~ label,
+  select.hasvalue ~ label,  
+  select:focus ~ label,
+  option:focus ~ label,  
+  input:not(:placeholder-shown) ~ label,
+  textarea:focus ~ label,
+  textarea:not(:placeholder-shown) ~ label,
+  .has-value ~ label {
+    transform: translateY(-1.8rem) translateX(-0.8rem)  scale(0.8);
+    background-color: white;
+    color: #0d6efd;
+  }
+  
+
+}
+
+ 
+ .right-aligned {
+     display: flex;
+     align-items: center;
+     gap: 1rem;
+     label {
+       min-width: 10 rem;
+       text-align: right;
+     }
+ }
+

@@ -1,0 +1,14 @@
+// src/app/form-designer/components/json-preview/json-preview.component.scss
+.json-preview {
+  &__title {
+    @apply text-lg font-bold mb-4;
+  }
+
+  &__textarea {
+    @apply w-full h-48 p-2 border rounded font-mono;
+  }
+
+  &__download-btn {
+    @apply bg-green-500 text-white px-4 py-2 rounded mt-2;
+  }
+}

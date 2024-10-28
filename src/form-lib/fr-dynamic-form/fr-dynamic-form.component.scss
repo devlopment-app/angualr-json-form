@@ -1,0 +1,91 @@
+.fr-dynamic-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  &.standard {
+  //  max-width: 600px;
+    margin: 0 auto;
+  }
+
+  &.inline {
+    flex-direction: row;
+    align-items: flex-end;
+    gap: 1rem;
+
+    .fr-dynamic-form-fields {
+      display: flex;
+      gap: 1rem;
+      flex: 1;
+    }
+
+    .fr-dynamic-form-field {
+      flex: 1;
+    }
+  }
+
+  &.horizontal {
+    .fr-dynamic-form-field {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      align-items: center;
+      gap: 1rem;
+    }
+  }
+
+  &-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  &-actions {
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 1rem;
+  }
+}
+
+.fr-button {
+  &-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 0.25rem;
+    background-color: #0d6efd;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.2s;
+
+    &:hover:not(:disabled) {
+      background-color: #0b5ed7;
+    }
+
+    &:disabled {
+      opacity: 0.65;
+      cursor: not-allowed;
+    }
+  }
+
+  &-loader {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.fr-spinner {
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: white;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

@@ -1,0 +1,15 @@
+<div class="json-preview">
+    <h3 class="json-preview__title">Form JSON</h3>
+    <textarea
+      [ngModel]="getFormJson()"
+      (ngModelChange)="onJsonChange($event)"
+      class="json-preview__textarea">
+    </textarea>
+    <button
+      (click)="downloadRequested.emit()"
+      class="json-preview__download-btn">
+      Download JSON
+    </button>
+  </div>
+  
+ 

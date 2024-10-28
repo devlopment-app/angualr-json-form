@@ -1,0 +1,49 @@
+<div [class.floating] = "theme == 'floating' || settings['theme'] = 'floating' " 
+[ngClass]="[layoutSetting, cssClass || '']" [ngStyle]="styles">
+  
+  <ng-container [ngSwitch]="controlType">
+    <!-- Text-based inputs [placeholder]=" ' ' "-->
+    
+    <!-- Select -->
+    
+    <select *ngSwitchCase="'select'"  [name]="name"
+          
+            
+            [class.hasvalue] = "model"
+            
+            [class] = "inputClass"
+          (blur)="onBlur()" (focus)="onFocus()"
+            (change)="onInputChange($event)">
+            <option value="" ></option>
+
+    
+      <option *ngFor="let option of options" [value]="option.key"
+              >
+        {{ option.value }}
+      </option>
+    </select>
+
+    
+
+    <!-- Default case for other input types -->
+    <input *ngSwitchDefault [type]="controlType"
+           [id]="name" [name]="name" 
+           [placeholder]=" ' ' "
+           [class]=" 'floating-label' + inputClass"
+           [disabled]="disabled" [readonly]="readonly"
+           (blur)="onBlur()" (focus)="onFocus()"
+           (input)="onInputChange($event)">
+  </ng-container>
+
+  <label [for]="name" [class]="labelClass" *ngIf="label">
+    {{ label }}
+  </label>
+
+
+  <div class="hint-text" *ngIf="hint">{{ hint }}</div>
+
+
+  
+
+
+</div>

@@ -1,0 +1,59 @@
+<form
+  #myForm="ngForm"
+  class="fr-dynamic-form clr-row"
+  [ngClass]="[config.layout || 'standard', config.cssClass || '']"
+>
+  <div class="clr-row">
+    <ng-container *ngFor="let field of fieldsVisible">
+      <fr-input
+        [class]="[
+          field.cssHostClass,
+          field.cssHostClass2,
+          field.cssHostClass3,
+          'xxclr-xxcol-sm-12',
+          'xxclr-xxcol-lg-6',
+          field.cssClass
+        ]"
+        [controlType]="field.type"
+        [name]="field.name"
+        [vm]="vm"
+        [settings]="settings"
+        [value]="getValue(field.name)"
+        [label]="field.label"
+        [options]="field.options"
+        [placeholder]="field.placeholder"
+        [hint]="field.hint"
+        [tooltip]="field.tooltip"
+        [model]="getValue(field.name)"
+        (modelChange)="onFieldChange(field.name, $event)"
+      >
+      </fr-input>
+    </ng-container>
+  </div>
+
+  <div class="fr-dynamic-form-actions">
+    <button
+      type="submit"
+      class="fr-button-primary"
+      [disabled]="!myForm.valid || submitting"
+      (click)="onSubmit()"
+    >
+      <span class="fr-button-text">
+        {{ config.submitButtonText || "Submit" }}
+      </span>
+      <div class="fr-button-loader" *ngIf="submitting">
+        <div class="fr-spinner"></div>
+      </div>
+    </button>
+  </div>
+</form>
+
+
+<button type="submit" class="btn button-primary btn-success" *ngIf="myForm.form.valid">
+  Submit
+</button>
+
+<button type="submit" class="btn button-primary btn-success" *ngIf="!myForm.form.valid">
+  Please fill all the fields 
+</button>
+

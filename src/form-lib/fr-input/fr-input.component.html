@@ -1,0 +1,76 @@
+<div [class]="[getAlignmentClass(), layoutSetting, cssClass, containerClass]">
+  <label [for]="name" 
+    [class]="[hasValueClass(), labelClass]" *ngIf="label">
+    {{ label }}&nbsp;<span *ngIf="required && (!getValue()) ">*</span>: &nbsp;  
+  </label>
+
+  <ng-container [ngSwitch]="controlType">
+    <select
+      *ngSwitchCase="'select'"
+      #ctrl="ngModel"
+      [name]="name"
+      [class]="[hasValueClass(), inputClass]"
+      (blur)="onBlur()"
+      (focus)="onFocus()"
+      (change)="onInputChange($event)"
+      [(ngModel)]="model"
+    >
+      <option value=""></option>
+      <option *ngFor="let option of options" [value]="option.key">
+        {{ option.value }}
+      </option>
+    </select>
+
+    <!-- Default case for other input types -->
+    <input
+      *ngSwitchDefault
+      [type]="controlType"
+      
+      [attr.required]="required"      
+      [attr.minlength]="minlength"
+      [attr.maxlength]="maxlength"
+
+      [attr.min]="min"
+      [attr.max]="max"
+ 
+      [attr.minDate]="minDate"
+      [attr.maxDate]="maxDate"
+ 
+      [id]="name"
+      [name]="name"
+      [placeholder]="' '"
+      [class]="[hasValueClass(), inputClass]"
+      [disabled]="disabled"
+      [readonly]="readonly"
+      (blur)="onBlur()"
+      (focus)="onFocus()"
+      (input)="onInputChange($event)"
+      [(ngModel)]="value"
+      #ctrl="ngModel"
+      style="display: inline-block"
+      size="20"
+
+    />
+    <div class="hint-text" *ngIf="hint">{{ hint }}</div>
+   
+    <div *ngIf="loaded " >
+        <div *ngIf="ctrl && ctrl?.touched && ctrl?.invalid" class="error-messages">
+          <div *ngIf="ctrl?.errors?.['required']">
+            {{label}} is required
+          </div>
+          <div *ngIf="ctrl &&  ctrl?.errors?.['minlength']">
+            Input must be at least {{ctrl.errors?.['minlength']?.requiredLength}} characters long.  Current length: {{ctrl.errors?.['minlength']?.actualLength}}
+          </div>
+          <div *ngIf="ctrl &&  ctrl?.errors?.['maxlength']">
+            Max length 
+          </div>
+          
+
+        </div> 
+  </div>
+  
+  </ng-container>
+
+  
+
+</div>

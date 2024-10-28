@@ -1,0 +1,42 @@
+<!-- 
+[cdkDropListData]="formFields"
+     (cdkDropListDropped)="onDrop($event)"
+      
+-->
+<div class="design-canvas" 
+     cdkDropList
+     
+     >
+  
+  <div *ngFor="let field of formFields; let i = index"
+       class="form-field"
+       [class.selected]="field === selectedField"
+       cdkDrag
+       (click)="selectField(field)">
+    
+    <div class="field-preview">
+      <div class="field-header">
+        <span class="field-label">{{field.label}}</span>
+        <button class="remove-btn" (click)="removeField(i)">×</button>
+      </div>
+      
+      <ng-container [ngSwitch]="field.type">
+        <input *ngSwitchCase="'text'"
+               [type]="field.type"
+               [placeholder]="field.placeholder"
+               [class]="field.cssClass">
+               
+        <select *ngSwitchCase="'select'" [class]="field.cssClass">
+          <option *ngFor="let opt of field.eoptions" 
+                  [value]="opt.value">{{opt.label}}</option>
+        </select>
+        
+        <textarea *ngSwitchCase="'textarea'"
+                  [placeholder]="field.placeholder"
+                  [class]="field.cssClass"></textarea>
+      </ng-container>
+      
+      <div *ngIf="field.hint" class="field-hint">{{field.hint}}</div>
+    </div>
+  </div>
+</div>

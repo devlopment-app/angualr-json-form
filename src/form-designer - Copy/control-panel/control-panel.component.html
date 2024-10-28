@@ -1,0 +1,24 @@
+<!-- #availableList="cdkDropList"
+      [cdkDropListData]="availableControls"
+      [cdkDropListConnectedTo]="['designerList']"
+      class="control-panel__list"
+      id="available-controls"
+      (cdkDropListDropped)="controlDropped.emit($event)"
+      -->
+
+<div class="control-panel">
+    <h3 class="control-panel__title">Controls</h3>
+    <div
+      cdkDropList
+      
+      
+      >
+      <div
+        *ngFor="let control of availableControls"
+        cdkDrag
+        class="control-panel__item">
+        {{ control.label }}
+      </div>
+    </div>
+  </div>
+  
