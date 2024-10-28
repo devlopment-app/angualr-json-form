@@ -1,3 +1,12 @@
+export interface ValidationRule2 {
+  type: string;
+  value: any;
+  message: string;
+}
+
+
+
+
 export type InputType = 
   | 'text' 
   | 'number' 
@@ -55,12 +64,19 @@ export interface FormField {
   label?: string;
   // type: InputType;
   value?: any;
+  icon?: any;
+ // categoryType?: any;
+  //elementType ?: any;
+  
   //validations?: ValidationRule[];
   options?: InputOption[] ;
   eoptions?: any[] ;
   
   placeholder?: string;
   disabled?: boolean;
+  
+  
+  
   readonly?: boolean;
   hide?: boolean;
   hiddden?: boolean;
@@ -99,3 +115,58 @@ export interface DynamicFormConfig {
   layout?: 'standard' | 'inline' | 'horizontal';
   cssClass?: string;
 }
+
+
+export interface ComponentDefinition  {
+  type: string;
+  name?: string;
+  
+  label: string;
+  icon: string;
+  defaultConfig?: Partial<FormField>;
+  category: 'input' | 'selection' | 'layout' | 'advanced';
+}
+
+
+export const AllComponents: ComponentDefinition[] = 
+[
+  // Input Fields
+  { type: 'text', label: 'Text Input', icon: 'text', category: 'input' },
+  { type: 'number', label: 'Number Input', icon: 'number-list', category: 'input' },
+  { type: 'email', label: 'Email Input', icon: 'envelope', category: 'input' },
+  { type: 'password', label: 'Password Input', icon: 'lock', category: 'input' },
+  { type: 'tel', label: 'Phone Input', icon: 'phone-handset', category: 'input' },
+  { type: 'url', label: 'URL Input', icon: 'link', category: 'input' },
+  { type: 'textarea', label: 'Text Area', icon: 'blocks', category: 'input' },
+  
+  // Selection Fields
+  { type: 'select', label: 'Dropdown', icon: 'pop-out', category: 'selection' },
+  { type: 'radio', label: 'Radio Group', icon: 'radio-button', category: 'selection' }
+
+
+]
+
+
+
+export const SampleFields: FormField[] = 
+[
+  // Input Fields
+  { type: 'text',  name:'fullName', label: 'Text Input', icon: 'text', placeholder: 'input' },
+  { type: 'number', name:'fullName',  label: 'Number Input', icon: 'number-list', placeholder: 'input' },
+  { type: 'email', name:'fullName',  label: 'Email Input', icon: 'envelope', placeholder: 'input' },
+  { type: 'password', name:'fullName', label: 'Password Input', icon: 'lock', placeholder: 'input' },
+  { type: 'tel', name:'fullName',  label: 'Phone Input', icon: 'phone-handset', placeholder: 'input' },
+  { type: 'url', name:'fullName', label: 'URL Input', icon: 'link', placeholder: 'input' },
+  { type: 'textarea', name:'fullName', label: 'Text Area', icon: 'blocks', placeholder: 'input' },
+  
+  // Selection Fields
+  { type: 'select', name:'fullName', label: 'Dropdown', icon: 'pop-out', placeholder: 'selection' },
+  { type: 'radio', name:'fullName', label: 'Radio Group', icon: 'radio-button', placeholder: 'selection' }
+
+
+]
+
+
+
+
+

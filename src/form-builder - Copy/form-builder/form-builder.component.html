@@ -39,23 +39,27 @@
                [cdkDropListData]="formFields"
                class="form-fields"
                (cdkDropListDropped)="drop($event)">
-
-            <!-- <div *ngFor="let field of formFields" 
+            <div *ngFor="let field of formFields" 
                  class="field-item" 
                  cdkDrag>
               <fr-input
-                [name]="field.name"                 [label]="field.label"
-                [controlType]="field.type"                [required]="field.required"                [placeholder]="field.placeholder"
-        
+                [name]="field.name"
+                [label]="field.label"
+                [controlType]="field.type"
+                [required]="field.required"
+                [placeholder]="field.placeholder"
+                [cssHostClass]="field.cssHostClass"
                 [options]="field.options">
               </fr-input>
               <div class="field-actions">
-                   <button class="btn btn-sm btn-link" (click)="editField(field)">                  <clr-icon shape="pencil"></clr-icon>                </button>
-                <button class="btn btn-sm btn-link" (click)="removeField(field)">                  <clr-icon shape="trash"></clr-icon>                </button>
+                <button class="btn btn-sm btn-link" (click)="editField(field)">
+                  <clr-icon shape="pencil"></clr-icon>
+                </button>
+                <button class="btn btn-sm btn-link" (click)="removeField(field)">
+                  <clr-icon shape="trash"></clr-icon>
+                </button>
               </div>
-            </div> -->
-
-
+            </div>
           </div>
         </div>
       </div>

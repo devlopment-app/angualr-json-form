@@ -7,7 +7,9 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormLibModule } from '../form-lib/form-lib.module';
+
 import { FormDesignerModule } from '../form-designer/form-designer.module';
+import { FormBuilderModule } from '../form-builder/form-builder.module';
 
 
 @NgModule({
@@ -23,7 +25,7 @@ import { FormDesignerModule } from '../form-designer/form-designer.module';
     ClarityModule,
     HttpClientModule,
     FormLibModule,
-    FormDesignerModule
+    FormDesignerModule,FormBuilderModule
   ],
   providers: [],
   bootstrap: [AppComponent]
