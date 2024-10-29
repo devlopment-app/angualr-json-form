@@ -6,8 +6,10 @@
           Components
         </div>
         <div class="card-block">
-          <div cdkDropList [cdkDropListData]="availableComponents" 
-               [cdkDropListConnectedTo]="['form-fields']"
+          <div cdkDropList 
+               #componentList="cdkDropList"
+               [cdkDropListData]="availableComponents"
+               [cdkDropListConnectedTo]="[formList]"
                class="components-list">
             <div *ngFor="let component of availableComponents" 
                  class="component-item" 
@@ -35,27 +37,32 @@
         </div>
         <div class="card-block">
           <div cdkDropList 
-               #formFields="cdkDropList"
+               #formList="cdkDropList"
                [cdkDropListData]="formFields"
+               [cdkDropListConnectedTo]="[componentList]"
                class="form-fields"
                (cdkDropListDropped)="drop($event)">
-
-            <!-- <div *ngFor="let field of formFields" 
+            <div *ngFor="let field of formFields" 
                  class="field-item" 
                  cdkDrag>
               <fr-input
-                [name]="field.name"                 [label]="field.label"
-                [controlType]="field.type"                [required]="field.required"                [placeholder]="field.placeholder"
-        
+                [name]="field.name"
+                [label]="field.label"
+                [controlType]="field.type"
+                [required]="field.required"
+                [placeholder]="field.placeholder"
+                [cssHostClass]="field.cssHostClass"
                 [options]="field.options">
               </fr-input>
               <div class="field-actions">
-                   <button class="btn btn-sm btn-link" (click)="editField(field)">                  <clr-icon shape="pencil"></clr-icon>                </button>
-                <button class="btn btn-sm btn-link" (click)="removeField(field)">                  <clr-icon shape="trash"></clr-icon>                </button>
+                <button class="btn btn-sm btn-link" (click)="editField(field)">
+                  <clr-icon shape="pencil"> </clr-icon> Edit
+                </button>
+                <button class="btn btn-sm btn-link" (click)="removeField(field)">
+                  <clr-icon shape="trash"></clr-icon> Delete
+                </button>
               </div>
-            </div> -->
-
-
+            </div>
           </div>
         </div>
       </div>
@@ -69,23 +76,159 @@
         </div>
         <div class="card-block">
           <form #propertyForm="ngForm">
+            <!-- Basic Properties -->
             <div class="clr-form-control">
-              <label class="clr-control-label">Label</label>
-              <input type="text" 
-                     class="clr-input" 
-                     [(ngModel)]="selectedField.label" 
-                     name="label">
-            </div>
-            <div class="clr-form-control">
-              <label class="clr-control-label">Required</label>
-              <div class="clr-toggle-wrapper">
-                <input type="checkbox" 
-                       class="clr-toggle" 
-                       [(ngModel)]="selectedField.required" 
-                       name="required">
+              <label class="clr-control-label">Name</label>
+              <div class="clr-control-container">
+                <input type="text" 
+                       class="clr-input" 
+                       [(ngModel)]="selectedField.name" 
+                       name="name">
               </div>
             </div>
-            <!-- Add more property fields as needed -->
+  
+            <div class="clr-form-control">
+              <label class="clr-control-label">Label</label>
+              <div class="clr-control-container">
+                <input type="text" 
+                       class="clr-input" 
+                       [(ngModel)]="selectedField.label" 
+                       name="label">
+              </div>
+            </div>
+  
+            <div class="clr-form-control">
+              <label class="clr-control-label">Type</label>
+              <div class="clr-control-container">
+                <select class="clr-select" 
+                        [(ngModel)]="selectedField.type" 
+                        name="type">
+                  <option value="text">Text</option>
+                  <option value="number">Number</option>
+                  <option value="select">Dropdown</option>
+                  <option value="textarea">Text Area</option>
+                  <option value="checkbox">Checkbox</option>
+                </select>
+              </div>
+            </div>
+  
+            <div class="clr-form-control">
+              <label class="clr-control-label">Placeholder</label>
+              <div class="clr-control-container">
+                <input type="text" 
+                       class="clr-input" 
+                       [(ngModel)]="selectedField.placeholder" 
+                       name="placeholder">
+              </div>
+            </div>
+  
+            <!-- Validation Properties -->
+            <div class="clr-form-control">
+              <label class="clr-control-label">Required</label>
+              <div class="clr-control-container">
+                <div class="clr-checkbox-wrapper">
+                  <input type="checkbox" 
+                         class="clr-checkbox" 
+                         [(ngModel)]="selectedField.required" 
+                         name="required" 
+                         id="required">
+                  <label for="required" class="clr-control-label"></label>
+                </div>
+              </div>
+            </div>
+  
+            <!-- Layout Properties -->
+            <div class="clr-form-control">
+              <label class="clr-control-label">CSS Class</label>
+              <div class="clr-control-container">
+                <select class="clr-select" 
+                        [(ngModel)]="selectedField.cssHostClass" 
+                        name="cssHostClass">
+                  <option value="clr-col-12">Full Width</option>
+                  <option value="clr-col-6">Half Width</option>
+                  <option value="clr-col-4">One Third</option>
+                  <option value="clr-col-3">One Quarter</option>
+                </select>
+              </div>
+            </div>
+  
+            <div class="clr-form-control">
+              <label class="clr-control-label">Alignment</label>
+              <div class="clr-control-container">
+                <select class="clr-select" 
+                        [(ngModel)]="selectedField.alignment" 
+                        name="alignment">
+                  <option value="floating">Floating</option>
+                  <option value="vertical">Vertical</option>
+                  <option value="horizontal">Horizontal</option>
+                </select>
+              </div>
+            </div>
+  
+            <!-- Options (for select/radio/checkbox) -->
+            <div class="clr-form-control" *ngIf="selectedField.type === 'select'">
+              <label class="clr-control-label">Options</label>
+              <div class="clr-control-container">
+                <textarea class="clr-textarea" 
+                          [(ngModel)]="selectedField.options" 
+                          name="options"
+                          placeholder="Enter options (one per line)"></textarea>
+              </div>
+            </div>
+  
+            <!-- Validation Rules -->
+            <div class="clr-form-control" *ngIf="selectedField.type === 'text' || selectedField.type === 'number'">
+              <label class="clr-control-label">Min Length</label>
+              <div class="clr-control-container">
+                <input type="number" 
+                       class="clr-input" 
+                       [(ngModel)]="selectedField.minLength" 
+                       name="minLength">
+              </div>
+            </div>
+  
+            <div class="clr-form-control" *ngIf="selectedField.type === 'text' || selectedField.type === 'number'">
+              <label class="clr-control-label">Max Length</label>
+              <div class="clr-control-container">
+                <input type="number" 
+                       class="clr-input" 
+                       [(ngModel)]="selectedField.maxLength" 
+                       name="maxLength">
+              </div>
+            </div>
+  
+            <!-- Pattern for text fields -->
+            <div class="clr-form-control" *ngIf="selectedField.type === 'text'">
+              <label class="clr-control-label">Pattern</label>
+              <div class="clr-control-container">
+                <input type="text" 
+                       class="clr-input" 
+                       [(ngModel)]="selectedField.pattern" 
+                       name="pattern"
+                       placeholder="Regular expression pattern">
+              </div>
+            </div>
+  
+            <!-- Min/Max for number fields -->
+            <div class="clr-form-control" *ngIf="selectedField.type === 'number'">
+              <label class="clr-control-label">Min Value</label>
+              <div class="clr-control-container">
+                <input type="number" 
+                       class="clr-input" 
+                       [(ngModel)]="selectedField.min" 
+                       name="min">
+              </div>
+            </div>
+  
+            <div class="clr-form-control" *ngIf="selectedField.type === 'number'">
+              <label class="clr-control-label">Max Value</label>
+              <div class="clr-control-container">
+                <input type="number" 
+                       class="clr-input" 
+                       [(ngModel)]="selectedField.max" 
+                       name="max">
+              </div>
+            </div>
           </form>
         </div>
       </div>

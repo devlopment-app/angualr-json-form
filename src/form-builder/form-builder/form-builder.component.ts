@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-
-import { FormField, DynamicFormConfig } from '../../form-models/form.types'
-
+import { FormField, DynamicFormConfig } from '../../form-models/form.types';
 
 @Component({
   selector: 'app-form-builder',
@@ -10,7 +8,7 @@ import { FormField, DynamicFormConfig } from '../../form-models/form.types'
   styleUrls: ['./form-builder.component.css']
 })
 export class FormBuilderComponent implements OnInit {
-  availableComponents: any[] = [
+  availableComponents: Partial<FormField>[] = [
     { type: 'text', label: 'Text Input' },
     { type: 'select', label: 'Dropdown' },
     { type: 'number', label: 'Number Input' },
@@ -25,7 +23,7 @@ export class FormBuilderComponent implements OnInit {
 
   ngOnInit() {}
 
-  drop(event: CdkDragDrop<FormField[]>) {
+  drop(event: CdkDragDrop< FormField[] ,any,any >  ) {
     if (event.previousContainer === event.container) {
       moveItemInArray(
         event.container.data,
@@ -33,12 +31,11 @@ export class FormBuilderComponent implements OnInit {
         event.currentIndex
       );
     } else {
-      // Create new field from component
       const component = this.availableComponents[event.previousIndex];
       const newField: FormField = {
         name: `field_${Date.now()}`,
-        label: component.label,
-        type: component.type,
+        label: component.label || '',
+        type: component.type || 'text',
         required: false,
         cssHostClass: 'clr-col-12',
         alignment: 'floating'
@@ -47,6 +44,7 @@ export class FormBuilderComponent implements OnInit {
       this.formFields.splice(event.currentIndex, 0, newField);
     }
   }
+
 
   editField(field: FormField) {
     this.selectedField = field;
@@ -60,25 +58,21 @@ export class FormBuilderComponent implements OnInit {
   }
 
   previewForm() {
-    // Generate form configuration
-    const formConfig = {
+    const formConfig: DynamicFormConfig = {
       fields: this.formFields,
       submitButtonText: 'Submit',
       layout: 'standard'
     };
-
-    // Open preview modal or navigate to preview route
     console.log('Preview form config:', formConfig);
   }
 
   exportJson() {
-    const formConfig = {
+    const formConfig: DynamicFormConfig = {
       fields: this.formFields,
       submitButtonText: 'Submit',
       layout: 'standard'
     };
     
-    // Download JSON file
     const blob = new Blob([JSON.stringify(formConfig, null, 2)], 
       { type: 'application/json' });
     const url = window.URL.createObjectURL(blob);

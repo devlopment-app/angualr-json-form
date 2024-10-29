@@ -130,6 +130,7 @@
       
     }
   ],
+  "alignment" : "floating",
   "submitButtonText": "Submit and Save",
   "layout": "standard"
 }

@@ -65,6 +65,14 @@ export interface FormField {
   // type: InputType;
   value?: any;
   icon?: any;
+
+  min?: any;
+  max?: any;
+  pattern?:any;
+  minLength?: any;
+  maxLength?: any;
+  
+
  // categoryType?: any;
   //elementType ?: any;
   
@@ -114,6 +122,8 @@ export interface DynamicFormConfig {
   initialValues?: { [key: string]: any };
   layout?: 'standard' | 'inline' | 'horizontal';
   cssClass?: string;
+  alignment?: string;
+  
 }
 
 

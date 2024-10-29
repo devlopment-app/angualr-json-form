@@ -3,6 +3,8 @@
   class="fr-dynamic-form clr-row"
   [ngClass]="[config.layout || 'standard', config.cssClass || '']"
 >
+<!--[alignment] ="config.alignment || field.alignment"
+-->
   <div class="clr-row">
     <ng-container *ngFor="let field of fieldsVisible">
       <fr-input
@@ -10,10 +12,10 @@
           field.cssHostClass,
           field.cssHostClass2,
           field.cssHostClass3,
-          'xxclr-xxcol-sm-12',
-          'xxclr-xxcol-lg-6',
           field.cssClass
         ]"
+        [alignment] =" config.alignment??'right' "
+        
         [controlType]="field.type"
         [name]="field.name"
         [vm]="vm"

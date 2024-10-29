@@ -26,7 +26,9 @@
       *ngSwitchDefault
       [type]="controlType"
       
-      [attr.required]="required"      
+      required
+      minlength="3"
+      
       [attr.minlength]="minlength"
       [attr.maxlength]="maxlength"
 

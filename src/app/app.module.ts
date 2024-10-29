@@ -8,7 +8,7 @@ import { HomeComponent } from './home/home.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormLibModule } from '../form-lib/form-lib.module';
 
-import { FormDesignerModule } from '../form-designer/form-designer.module';
+//import { FormDesignerModule } from '../form-designer/form-designer.module';
 import { FormBuilderModule } from '../form-builder/form-builder.module';
 
 
@@ -25,7 +25,8 @@ import { FormBuilderModule } from '../form-builder/form-builder.module';
     ClarityModule,
     HttpClientModule,
     FormLibModule,
-    FormDesignerModule,FormBuilderModule
+    //FormDesignerModule,
+    FormBuilderModule
   ],
   providers: [],
   bootstrap: [AppComponent]
